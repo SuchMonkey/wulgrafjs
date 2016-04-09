@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WulgrafJS</title>
+  <script src="jspm_packages/system.js"></script>
+  <script src="config.js"></script>
+  <script>
+    System.import('src/lib');
+  </script>
+  <script>
+  /*
+    wulgraf.store('list', {
+      data: [
+        '1',
+        '2',
+        '3',
+      ]
+    })
+
+    wulgraf.component('list-component', {
+      init() {
+        this.listStore = wulgraf.stores.list.subscribe()
+      },
+      render() {
+        return ['ul',
+          this.list.map(x => ['li', x]),
+          ['li',
+            ['button', 'add', {onClick: this.add}]
+          ]
+        ]
+      },
+      add() {
+        this.list.push(this.list[this.list.length]++)
+        this.list.commit().then(() => console.log('do something after commit')).catch(() => console.log('commit did not work probably due to conflict'))
+      }
+    })
+    */
+  </script>
+</head>
+
+<body>
+  <div id='app'></div>
+</body>
+
+</html>

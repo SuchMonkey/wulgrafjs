@@ -1,0 +1,43 @@
+{
+  "name": "wulgrafjs",
+  "version": "1.0.0",
+  "description": "Sleak HTML component library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "serve -p 3000 ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuchMonkey/wulgrafjs.git"
+  },
+  "keywords": [
+    "html",
+    "components",
+    "wulgraf",
+    "jsonml",
+    "shaven",
+    "templates"
+  ],
+  "author": "SuchMonkey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SuchMonkey/wulgrafjs/issues"
+  },
+  "homepage": "https://github.com/SuchMonkey/wulgrafjs#readme",
+  "devDependencies": {
+    "jspm": "^0.16.32",
+    "serve": "^1.4.0"
+  },
+  "jspm": {
+    "dependencies": {
+      "lodash": "npm:lodash@^4.9.0",
+      "shaven": "npm:shaven@^1.0.1"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  }
+}
