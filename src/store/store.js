@@ -1,40 +1,36 @@
 import _ from 'lodash'
 
-export default function(name, storeTemplate, eventManager) {
+export default function(name, template, eventManager) {
 
-  storeTemplate.data = storeTemplate.data || {}
-  storeTemplate.init = storeTemplate.init || function () {
+  template.init = template.init || function() {}
+  template.data = template.data || {}
 
-  }
-
-  storeTemplate.on = function(signatureString, callback) {
+  // Add event handling to the store template
+  template.on = function(signatureString, callback) {
     eventManager.on(`${name}:${signatureString}`, callback)
   }
 
-  storeTemplate.once = function(signatureString, callback) {
+  template.once = function(signatureString, callback) {
     eventManager.once(`${name}:${signatureString}`, callback)
   }
 
-  storeTemplate.trigger = function(signaturePattern, ...params) {
+  template.trigger = function(signaturePattern, ...params) {
     eventManager.trigger(`${name}:${signaturePattern}`, ...params)
   }
 
-  storeTemplate.commit = function() {
-    storeTemplate.trigger('commit', _.cloneDeep(this.data))
+  template.commit = function() {
+    this.trigger('commit', this.data)
   }
 
-  // Make sure the template has the latest data for further subscribtions
-  storeTemplate.on('commit', (data) => {
-    storeTemplate.data = data
-  })
+  template.on('commit', newData => template.data = newData)
 
   return function() {
-    let newStore = _.cloneDeep(storeTemplate)
+    let store = _.cloneDeep(template)
 
-    newStore.on('commit', (data) => {
-      newStore.data = data
-    })
+    store.on('commit', newData => store.data = _.cloneDeep(newData))
 
-    return newStore
+    store.init()
+
+    return store
   }
 }

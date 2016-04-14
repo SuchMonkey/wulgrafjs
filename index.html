@@ -6,41 +6,53 @@
   <script src="jspm_packages/system.js"></script>
   <script src="config.js"></script>
   <script>
-    System.import('src/lib');
-  </script>
-  <script>
-  /*
-    wulgraf.store('list', {
-      data: [
-        '1',
-        '2',
-        '3',
-      ]
-    })
+    System.import('src/lib').then(m => {
+      window.wulgraf = m.default()
 
-    wulgraf.component('list-component', {
-      init() {
-        this.listStore = wulgraf.stores.list.subscribe()
-      },
-      render() {
-        return ['ul',
-          this.list.map(x => ['li', x]),
-          ['li',
-            ['button', 'add', {onClick: this.add}]
+      wulgraf.stores.register('item-store', {
+          init() {
+
+          },
+          data: [
+            'asdf'
           ]
-        ]
-      },
-      add() {
-        this.list.push(this.list[this.list.length]++)
-        this.list.commit().then(() => console.log('do something after commit')).catch(() => console.log('commit did not work probably due to conflict'))
-      }
-    })
-    */
+      })
+
+      wulgraf.components.register('item-display', {
+          init() {
+              this.itemStore = wulgraf.stores.subscribe('item-store')
+              //this.references.btnNewItem.addEventListener('click', eAddItem)
+          },
+          eAddItem(e) {
+              let value = this.references.newItem.value
+              this.itemStore.data.push(value)
+              this.itemStore.commit()
+          },
+          render() {
+
+            return ['div',
+                ['ul',
+                    this.itemStore.data.map(x => ['li', x]),
+                    ['li',
+                        ['input$txtNewItem', '', {type:'text'}],
+                        ['button$btnNewItem', 'ADD', {
+                          onClick: 'wulgraf.components["item-display"].eAddItem()'
+                        }]
+                    ]
+                ]
+            ]
+          }
+      })
+
+      //document.body.appendChild(wulgraf.components.new('item-display').update())
+    });
+
   </script>
+
 </head>
 
 <body>
-  <div id='app'></div>
+  <item-display></item-display>
 </body>
 
 </html>
